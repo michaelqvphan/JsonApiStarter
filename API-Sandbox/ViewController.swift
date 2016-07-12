@@ -23,10 +23,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        /*
         exerciseOne()
         exerciseTwo()
         exerciseThree()
+        */
         
         let apiToContact = "https://itunes.apple.com/us/rss/topmovies/limit=25/json"
         // This code will call the iTunes top 25 movies endpoint listed above
@@ -38,8 +39,10 @@ class ViewController: UIViewController {
                     
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
-                    
-                    
+                    let randomNumber = Int(arc4random_uniform(25))
+                    let randomMovieData = json["feed"]["entry"][randomNumber]
+                    let newMovieObject = Movie(json: randomMovieData)
+                    self.loadPoster(newMovieObject.posterProperty)
                 }
             case .Failure(let error):
                 print(error)
@@ -58,7 +61,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func viewOniTunesPressed(sender: AnyObject) {
-        
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.com")!)
     }
     
 }

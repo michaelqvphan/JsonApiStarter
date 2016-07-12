@@ -31,6 +31,15 @@ internal func exerciseOne() {
     // then the first dictionary value of that array, then the dictionary stored in "name",
     // then the value stored in "first". We  then told it that we wanted the value as a string.
     
+    let lastName = userData["results"][0]["name"]["last"].stringValue
+    let streetName = userData["results"][0]["location"]["street"].stringValue
+    let cityName = userData["results"][0]["location"]["city"].stringValue
+    let stateName = userData["results"][0]["location"]["state"].stringValue
+    let postCode = userData["results"][0]["location"]["postcode"].intValue
+    let titleName = userData["results"][0]["name"]["title"].stringValue
+    let emailAddress = userData["results"][0]["email"].stringValue
+    let cellPhone = userData["results"][0]["cell"].stringValue
+
     /*
      
      Now it's your turn to get the rest of the values needed to print the following:
@@ -41,8 +50,7 @@ internal func exerciseOne() {
      
      */
     
-    
-    
+    print("\(firstName) \(lastName) lives at \(streetName) in \(cityName), \(stateName), \(postCode). If you want to contact \(titleName). \(lastName), you can email \(emailAddress) or call at \(cellPhone).")
     
     
 }
@@ -68,7 +76,7 @@ internal func exerciseTwo() {
     
     // Uncomment this print statement when you are ready to check your code!
     
-//    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
+    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs \(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
 }
 
 internal func exerciseThree() {
@@ -95,9 +103,13 @@ internal func exerciseThree() {
      */
     var allMovies: [Movie] = []
     
+    for i in 0 ..< allMoviesData.count
+    {
+        let movie = Movie(json: allMoviesData[i])
+        allMovies.append(movie)
+    }
     
-    
-    
+    print(allMovies[0])
     /*
      
      Uncomment the below print statement and then print out the names of the two Disney
@@ -105,9 +117,14 @@ internal func exerciseThree() {
      contains the `String` "Disney". Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are Disney movies:")
+    print("The following movies are Disney movies:")
     
-    
+    for i in 0 ..< allMovies.count
+    {
+        if allMovies[i].rightsOwner.rangeOfString("Disney") != nil {
+            print(allMovies[i].name)
+        }
+    }
     
     
     /*
@@ -116,9 +133,14 @@ internal func exerciseThree() {
      movie that costs less than $15. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are cost less than $15:")
+    print("The following movies are cost less than $15:")
     
-    
+    for i in 0 ..< allMovies.count
+    {
+        if allMovies[i].price < "$15.00" {
+            print(allMovies[i].name + ": " + allMovies[i].price)
+        }
+    }
     
     
     /*
@@ -127,9 +149,14 @@ internal func exerciseThree() {
      each movie released in 2016. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies were released in 2016:")
+    print("The following movies were released in 2016:")
     
-    
+    for i in 0 ..< allMovies.count
+    {
+        if allMovies[i].releaseDate.rangeOfString("2016") != nil {
+            print(allMovies[i].name + "was release on " + allMovies[i].releaseDate)
+        }
+    }
     
     
 }
